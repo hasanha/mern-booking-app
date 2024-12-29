@@ -1,15 +1,55 @@
 import { useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
-
-const ImagesSection = () => {
+import { useEffect } from "react";
+interface Props {
+  handleSuccessSubmit: () => void; // Accept the success handler as a prop
+}
+const ImagesSection = ({ handleSuccessSubmit }: Props) => {
   const {
     register,
     formState: { errors },
+    watch,
+    setValue,
+    reset,
   } = useFormContext<HotelFormData>();
+
+  const existingImageUrls = watch("imageUrls");
+
+  const handleDelete = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    imageUrl: string,
+  ) => {
+    event.preventDefault();
+    setValue(
+      "imageUrls",
+      existingImageUrls.filter((url) => url !== imageUrl),
+    );
+  };
+
+  useEffect(() => {
+    const emptyFileList = new DataTransfer().files;
+    setValue("imageFiles", emptyFileList); // Clear the new image files only
+  }, [existingImageUrls, setValue]);
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Images</h2>
       <div className="border rounded p-4 flex flex-col">
+        {existingImageUrls && (
+          <div className="grid grid-cols-6 gap-4">
+            {existingImageUrls.map((url) => (
+              <div className="relative group border border-gray-300 rounded shadow-lg drop-shadow-lg outline-double outline-2 outline-gray-500 p-[0.05rem] mb-3">
+                <img src={url} className="min-h-full object-cover rounded" />
+                <button
+                  onClick={(e) => handleDelete(e, url)}
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 text-white"
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
         <input
           type="file"
           multiple
@@ -17,7 +57,8 @@ const ImagesSection = () => {
           className="w-full text-gray-700 font-normal"
           {...register("imageFiles", {
             validate: (imageFiles) => {
-              const totalLength = imageFiles.length;
+              const totalLength =
+                imageFiles.length + (existingImageUrls?.length || 0);
 
               if (totalLength === 0) {
                 return "Please upload at least one image";
