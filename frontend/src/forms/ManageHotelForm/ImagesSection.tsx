@@ -1,16 +1,13 @@
 import { useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
 import { useEffect } from "react";
-interface Props {
-  handleSuccessSubmit: () => void; // Accept the success handler as a prop
-}
-const ImagesSection = ({ handleSuccessSubmit }: Props) => {
+
+const ImagesSection = () => {
   const {
     register,
     formState: { errors },
     watch,
     setValue,
-    reset,
   } = useFormContext<HotelFormData>();
 
   const existingImageUrls = watch("imageUrls");
