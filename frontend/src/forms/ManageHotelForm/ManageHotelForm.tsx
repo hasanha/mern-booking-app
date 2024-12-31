@@ -26,15 +26,9 @@ type Props = {
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
   hotel?: HotelType;
-  handleSuccessSubmit: () => void;
 };
 
-const ManageHotelForm = ({
-  onSave,
-  isLoading,
-  hotel,
-  handleSuccessSubmit,
-}: Props) => {
+const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
   const formMethods = useForm<HotelFormData>();
 
   const { handleSubmit, reset } = formMethods;
@@ -80,7 +74,7 @@ const ManageHotelForm = ({
         <TypeSection />
         <FacilitiesSection />
         <GuestsSection />
-        <ImagesSection handleSuccessSubmit={handleSuccessSubmit} />
+        <ImagesSection />
         <span className="flex justify-end">
           <button
             type="submit"

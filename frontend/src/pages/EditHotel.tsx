@@ -17,7 +17,6 @@ const EditHotel = () => {
     onSuccess: () => {
       showToast({ message: "Hotel Saved!", type: "SUCCESS" });
       refetch();
-      handleSuccessSubmit();
     },
     onError: () => {
       showToast({ message: "Error Saving Hotel", type: "ERROR" });
@@ -28,17 +27,8 @@ const EditHotel = () => {
     mutate(hotelFormData);
   };
 
-  const handleSuccessSubmit = () => {
-    return true;
-  };
-
   return (
-    <ManageHotelForm
-      hotel={hotel}
-      onSave={handleSave}
-      isLoading={isLoading}
-      handleSuccessSubmit={handleSuccessSubmit}
-    />
+    <ManageHotelForm hotel={hotel} onSave={handleSave} isLoading={isLoading} />
   );
 };
 

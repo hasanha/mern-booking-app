@@ -44,7 +44,7 @@ const Register = () => {
       <h2 className="text-3xl font-bold">Create an Account</h2>
 
       <div className="flex flex-col md:flex-row gap-5">
-        <label htmlFor="" className="text-gray-700 text-sm font-bold flex-1">
+        <label htmlFor="" className="text-gray-700 text-sm font-bold flex-1 ">
           First Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"

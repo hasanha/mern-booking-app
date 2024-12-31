@@ -35,7 +35,10 @@ const ImagesSection = () => {
         {existingImageUrls && (
           <div className="grid grid-cols-6 gap-4">
             {existingImageUrls.map((url) => (
-              <div className="relative group border border-gray-300 rounded shadow-lg drop-shadow-lg outline-double outline-2 outline-gray-500 p-[0.05rem] mb-3">
+              <div
+                key={url}
+                className="relative group border border-gray-300 rounded shadow-lg drop-shadow-lg outline-double outline-2 outline-gray-500 p-[0.05rem] mb-3"
+              >
                 <img src={url} className="min-h-full object-cover rounded" />
                 <button
                   onClick={(e) => handleDelete(e, url)}
